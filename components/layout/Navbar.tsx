@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { Heart, Menu, Search, ShoppingBag, User as UserIcon, X } from "lucide-react";
 import { BrandMark } from "@/components/ui/BrandMark";
 import { Container } from "@/components/ui/Container";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
@@ -94,14 +94,14 @@ export function Navbar() {
               <Search className="h-[18px] w-[18px]" strokeWidth={1.5} />
             </Link>
 
-            {/* Akkaunt */}
+            {/* Akkaunt — user bo'lsa filled, bo'lmasa outline */}
             <Link
               href="/account"
               aria-label={t.nav.account}
               className="relative hidden md:grid h-10 w-10 place-items-center rounded-full text-ink/80 hover:text-ink
                          transition-colors duration-500 ease-luxury hover:bg-ink/[0.04]"
             >
-              <User className="h-[18px] w-[18px]" strokeWidth={1.5} />
+              <UserIcon className="h-[18px] w-[18px]" strokeWidth={1.5} />
             </Link>
 
             {/* Sevimlilar — real badge */}
