@@ -2,28 +2,281 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   TAYIBA — Global Design System
+   "Quiet Luxury" × "Premium Minimalism"
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @layer base {
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
-  body { @apply bg-bone text-ink font-sans; }
-  h1, h2, h3 { @apply font-display; }
-  ::selection { background: rgba(201,158,31,0.25); color: #15110A; }
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  :root {
+    --gold: 197 168 128;
+    --ink: 26 26 26;
+    --bone: 251 251 250;
+    --muted: 118 118 118;
+    --radius-card: 16px;
+    --radius-btn: 9999px;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "ss01" 1, "cv11" 1;
+  }
+
+  body {
+    @apply bg-bone text-ink font-sans;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── Headings — Cormorant Garamond ──────────────────────────────────── */
+  h1, h2, h3, h4 {
+    @apply font-display font-light;
+    letter-spacing: -0.01em;
+  }
+
+  h1 { @apply text-display-lg; }
+  h2 { @apply text-display-md; }
+  h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.2; }
+
+  /* ── Links ──────────────────────────────────────────────────────────── */
+  a { @apply transition-colors duration-300 ease-out; }
+
+  /* ── Selection — gold whisper ───────────────────────────────────────── */
+  ::selection {
+    background: rgba(197, 168, 128, 0.22);
+    color: #1A1A1A;
+  }
+
+  /* ── Scrollbar — minimal ────────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(20,17,10,0.12); border-radius: 8px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(20,17,10,0.22); }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(26, 26, 26, 0.1);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(26, 26, 26, 0.2); }
+
+  /* ── Images ─────────────────────────────────────────────────────────── */
+  img { max-width: 100%; display: block; }
 }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   COMPONENTS — Reusable design tokens
+   ───────────────────────────────────────────────────────────────────────── */
+
 @layer components {
-  .eyebrow { @apply text-[11px] uppercase tracking-ultra text-ink/60 font-sans font-medium; }
-  .hairline { @apply h-px w-full bg-ink/10; }
-  .link-luxury { @apply relative inline-flex items-center gap-2 text-sm tracking-widest uppercase text-ink/80 transition-colors duration-500 ease-luxury hover:text-ink; }
-  .link-luxury::after { content: ""; @apply absolute left-0 -bottom-1 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-700 ease-luxury; }
+  /* ── Eyebrow — spaced caption ────────────────────────────────────────── */
+  .eyebrow {
+    @apply text-ui-xs uppercase tracking-widest text-muted font-sans font-medium;
+  }
+
+  /* ── Gold divider ────────────────────────────────────────────────────── */
+  .hairline {
+    @apply h-px bg-ink/8;
+  }
+
+  .hairline-gold {
+    @apply h-px;
+    background: linear-gradient(90deg, transparent 0%, rgba(197,168,128,0.4) 50%, transparent 100%);
+  }
+
+  /* ── Premium text link ───────────────────────────────────────────────── */
+  .link-luxury {
+    @apply relative inline-flex items-center gap-2 text-sm tracking-wider
+           text-ink/75 transition-colors duration-500 ease-luxury hover:text-ink;
+  }
+  .link-luxury::after {
+    content: "";
+    @apply absolute left-0 -bottom-0.5 h-px w-full origin-right scale-x-0
+           bg-gold-500 transition-transform duration-600 ease-luxury;
+  }
   .link-luxury:hover::after { @apply origin-left scale-x-100; }
-  .card-luxury { @apply relative overflow-hidden rounded-2xl bg-desert-50 shadow-soft transition-all duration-700 ease-luxury hover:shadow-luxury; }
+
+  /* ── Premium buttons ─────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2.5
+           rounded-full px-8 py-3.5
+           bg-ink text-bone text-ui-xs uppercase tracking-widest font-medium
+           shadow-card
+           transition-all duration-500 ease-luxury
+           hover:bg-gold-600 hover:shadow-gold hover:-translate-y-0.5
+           active:translate-y-0 active:shadow-card
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2
+           disabled:opacity-40 disabled:pointer-events-none;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2.5
+           rounded-full px-8 py-3.5
+           bg-transparent text-ink text-ui-xs uppercase tracking-widest font-medium
+           ring-1 ring-ink/15
+           transition-all duration-500 ease-luxury
+           hover:ring-gold-500 hover:text-gold-700 hover:-translate-y-0.5
+           active:translate-y-0
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500
+           disabled:opacity-40 disabled:pointer-events-none;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2.5
+           rounded-full px-8 py-3.5
+           text-ui-xs uppercase tracking-widest font-medium
+           text-ink/90
+           shadow-gold-sm
+           transition-all duration-500 ease-luxury
+           hover:-translate-y-0.5 hover:shadow-gold
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500
+           disabled:opacity-40 disabled:pointer-events-none;
+    background: linear-gradient(135deg, #E8D9C4 0%, #C5A880 60%, #A8895F 100%);
+  }
+
+  .btn-telegram {
+    @apply inline-flex items-center justify-center gap-2.5
+           rounded-full px-8 py-3.5
+           bg-[#229ED9] text-white text-ui-xs uppercase tracking-widest font-medium
+           shadow-card
+           transition-all duration-500 ease-luxury
+           hover:bg-[#1a8fc4] hover:shadow-card-hover hover:-translate-y-0.5
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400
+           disabled:opacity-40 disabled:pointer-events-none;
+  }
+
+  /* ── Section spacing — generous breathing room ───────────────────────── */
+  .section {
+    @apply py-24 md:py-32;
+  }
+
+  .section-sm {
+    @apply py-16 md:py-24;
+  }
+
+  .section-lg {
+    @apply py-32 md:py-40;
+  }
+
+  /* ── Max-width container ─────────────────────────────────────────────── */
+  .wrapper {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* ── Card ────────────────────────────────────────────────────────────── */
+  .card {
+    @apply bg-canvas rounded-2xl shadow-card
+           transition-all duration-500 ease-luxury
+           hover:shadow-card-hover;
+  }
+
+  /* ── Product image wrapper — fixed proportion ────────────────────────── */
+  .product-image-wrap {
+    @apply relative aspect-[3/4] w-full overflow-hidden bg-desert-100;
+  }
+
+  .product-image-wrap img,
+  .product-image-wrap > div {
+    @apply absolute inset-0 h-full w-full object-cover;
+  }
+
+  /* ── Badge ───────────────────────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full
+           text-ui-xs uppercase tracking-wider font-medium;
+  }
+
+  .badge-new {
+    @apply badge bg-gold-100 text-gold-700;
+  }
+
+  .badge-limited {
+    @apply badge bg-ink text-bone;
+  }
+
+  /* ── Star rating ─────────────────────────────────────────────────────── */
+  .stars {
+    @apply flex items-center gap-0.5;
+  }
+
+  .star {
+    @apply text-gold-500;
+    font-size: 14px;
+  }
+
+  /* ── Modal overlay ───────────────────────────────────────────────────── */
+  .modal-overlay {
+    @apply fixed inset-0 z-[90] bg-ink/40 backdrop-blur-sm
+           flex items-end sm:items-center justify-center p-4;
+  }
+
+  .modal-panel {
+    @apply relative w-full max-w-2xl bg-canvas rounded-3xl shadow-luxury
+           max-h-[90vh] overflow-y-auto;
+  }
+
+  /* ── Accordion ───────────────────────────────────────────────────────── */
+  .accordion-trigger {
+    @apply flex w-full items-center justify-between gap-4
+           py-5 text-left transition-colors duration-300 ease-out
+           hover:text-gold-700;
+  }
+
+  /* ── Input ───────────────────────────────────────────────────────────── */
+  .input-luxury {
+    @apply w-full bg-transparent border-b border-ink/15 py-3 text-sm
+           placeholder:text-muted/60
+           focus:outline-none focus:border-gold-500
+           transition-colors duration-500 ease-luxury;
+  }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   UTILITIES
+   ───────────────────────────────────────────────────────────────────────── */
 
 @layer utilities {
   .text-balance { text-wrap: balance; }
-  .text-pretty { text-wrap: pretty; }
-  .leading-luxury { line-height: 1.7; }
+  .text-pretty  { text-wrap: pretty; }
+
+  /* Gold gradient text */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #D4AF7A 0%, #C5A880 50%, #A8895F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Hover gold underline */
+  .hover-gold {
+    @apply relative;
+  }
+  .hover-gold::after {
+    content: "";
+    @apply absolute inset-x-0 -bottom-0.5 h-0.5 origin-left scale-x-0
+           bg-gold-500 transition-transform duration-500 ease-luxury;
+  }
+  .hover-gold:hover::after { @apply scale-x-100; }
+
+  /* Image overlay gradient */
+  .overlay-bottom {
+    background: linear-gradient(to top, rgba(26,26,26,0.6) 0%, transparent 60%);
+  }
+
+  /* Glassmorphism */
+  .glass {
+    @apply bg-bone/80 backdrop-blur-md;
+  }
+
+  /* Shimmer loading */
+  .shimmer {
+    background: linear-gradient(90deg, #F5F3EF 25%, #E8E4DC 50%, #F5F3EF 75%);
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
 }
