@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+  body { @apply bg-bone text-ink font-sans; }
+  h1, h2, h3 { @apply font-display; }
+  ::selection { background: rgba(201,158,31,0.25); color: #15110A; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(20,17,10,0.12); border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(20,17,10,0.22); }
+}
+
+@layer components {
+  .eyebrow { @apply text-[11px] uppercase tracking-ultra text-ink/60 font-sans font-medium; }
+  .hairline { @apply h-px w-full bg-ink/10; }
+  .link-luxury { @apply relative inline-flex items-center gap-2 text-sm tracking-widest uppercase text-ink/80 transition-colors duration-500 ease-luxury hover:text-ink; }
+  .link-luxury::after { content: ""; @apply absolute left-0 -bottom-1 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-700 ease-luxury; }
+  .link-luxury:hover::after { @apply origin-left scale-x-100; }
+  .card-luxury { @apply relative overflow-hidden rounded-2xl bg-desert-50 shadow-soft transition-all duration-700 ease-luxury hover:shadow-luxury; }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .leading-luxury { line-height: 1.7; }
+}
