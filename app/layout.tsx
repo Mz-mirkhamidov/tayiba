@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Cormorant_Garamond, Amiri } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { CartDrawer } from "@/components/cart/CartDrawer";
 import { locale } from "@/lib/i18n";
 import "./globals.css";
 
@@ -14,7 +15,13 @@ export const metadata: Metadata = {
   title: { default: "TAYIBA — Premium Islomiy Moda", template: "%s · TAYIBA" },
   description: "TAYIBA — Madinadan ilhomlangan premium Islomiy moda. Halol, qo'lda tikilgan, zamonaviy hashamat.",
   keywords: ["TAYIBA", "Islomiy moda", "premium islomiy kiyim", "halol moda", "abaya", "to'b", "Toshkent", "O'zbekiston"],
-  openGraph: { title: "TAYIBA — Premium Islomiy Moda", description: "Madinadan ilhomlangan premium Islomiy moda.", type: "website", locale: "uz_UZ", siteName: "TAYIBA" },
+  openGraph: {
+    title: "TAYIBA — Premium Islomiy Moda",
+    description: "Madinadan ilhomlangan premium Islomiy moda.",
+    type: "website",
+    locale: "uz_UZ",
+    siteName: "TAYIBA",
+  },
   icons: { icon: "/favicon.svg" },
 };
 
@@ -27,6 +34,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main className="relative">{children}</main>
         <Footer />
+        {/* CartDrawer — global, har sahifada mavjud */}
+        <CartDrawer />
       </body>
     </html>
   );

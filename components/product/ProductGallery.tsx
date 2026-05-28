@@ -7,6 +7,7 @@ import type { ColorOption, MediaItem, Product } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { luxuryEase } from "@/animations/variants";
 import { TayibaImage } from "@/components/ui/TayibaImage";
+import { useWishlistStore } from "@/store/wishlist";
 
 interface ProductGalleryProps {
   product: Product;
@@ -28,6 +29,8 @@ interface ProductGalleryProps {
  */
 export function ProductGallery({ product, selectedColorId }: ProductGalleryProps) {
   const color = product.colors.find((c) => c.id === selectedColorId) ?? product.colors[0];
+  const { toggleItem, isWishlisted } = useWishlistStore();
+  const wishlisted = isWishlisted(product.id);
 
   // Gallery item'larini tuzish:
   // Agar rang o'ziga xos cloudinaryId ga ega bo'lsa,
@@ -159,15 +162,29 @@ export function ProductGallery({ product, selectedColorId }: ProductGalleryProps
             </motion.div>
           </AnimatePresence>
 
-          {/* Wishlist */}
+          {/* Wishlist — real store */}
           <button
             type="button"
-            aria-label="Sevimlilarga qo'shish"
-            className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full
-                       bg-bone/85 text-ink/70 backdrop-blur-md
-                       transition-all duration-700 ease-luxury hover:text-emerald-700 hover:bg-bone"
+            onClick={() => toggleItem(product)}
+            aria-label={wishlisted ? "Sevimlilardan olib tashlash" : "Sevimlilarga qo'shish"}
+            aria-pressed={wishlisted}
+            className={cn(
+              "absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full backdrop-blur-md",
+              "transition-all duration-700 ease-luxury",
+              wishlisted
+                ? "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200"
+                : "bg-bone/85 text-ink/70 hover:text-emerald-700 hover:bg-bone",
+            )}
           >
-            <Heart className="h-4 w-4" strokeWidth={1.5} />
+            <motion.div
+              animate={wishlisted ? { scale: [1, 1.3, 1] } : { scale: 1 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Heart
+                className={cn("h-4 w-4 transition-all duration-500 ease-luxury", wishlisted && "fill-emerald-700")}
+                strokeWidth={1.5}
+              />
+            </motion.div>
           </button>
 
           {/* Ko'rish */}
