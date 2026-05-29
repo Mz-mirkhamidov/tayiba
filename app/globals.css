@@ -280,3 +280,22 @@
     @apply animate-shimmer;
   }
 }
+
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LEGACY-SAFE UTILITIES — eski komponentlar uchun moslik
+   ───────────────────────────────────────────────────────────────────────── */
+
+@layer utilities {
+  .leading-luxury { line-height: 1.75; }
+
+  .bg-gradient-madinah {
+    background: linear-gradient(180deg, #FBFBFA 0%, #F0EDE8 60%, #EEF6F1 100%);
+  }
+  .bg-gradient-divine {
+    background: linear-gradient(135deg, #FDF8F2 0%, #F7EDDF 50%, #EED9BF 100%);
+  }
+  .shadow-soft {
+    box-shadow: 0 1px 3px rgba(26, 26, 26, 0.04), 0 8px 24px -8px rgba(26, 26, 26, 0.08);
+  }
+}

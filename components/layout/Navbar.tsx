@@ -35,7 +35,7 @@ export function Navbar() {
           "fixed inset-x-0 top-0 z-50",
           "transition-[background-color,backdrop-filter,box-shadow] duration-700 ease-luxury",
           scrolled
-            ? "bg-bone/85 backdrop-blur-xl shadow-[0_1px_0_rgba(20,17,10,0.06)]"
+            ? "bg-bone/80 backdrop-blur-xl shadow-[0_1px_0_rgba(26,26,26,0.06)]"
             : "bg-transparent",
         )}
       >
@@ -68,7 +68,7 @@ export function Navbar() {
                   {active && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute -bottom-1.5 left-0 h-px w-full bg-ink"
+                      className="absolute -bottom-1.5 left-0 h-px w-full bg-gold-500"
                       transition={{ duration: 0.6, ease: luxuryEase }}
                     />
                   )}
